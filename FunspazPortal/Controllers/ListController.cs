@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using FunspazPortal.Models;
 
 namespace FunspazPortal.Controllers
 {
     public class ListController : Controller
     {
+        private digitaluxeEntities db = new digitaluxeEntities();
         // GET: Beauty
         public ActionResult Beauty()
         {
-            return View();
+            var contents = db.contents.Include(c => c.service1);
+            return View(contents.ToList());
         }
 
         // GET: Love

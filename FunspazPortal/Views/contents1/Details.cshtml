@@ -1,0 +1,74 @@
+﻿@model FunspazPortal.Models.content
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>content</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.icon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.icon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.image1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.image2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.insertdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.insertdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.service1.servicename)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.service1.servicename)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

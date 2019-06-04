@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="digitaluxeModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="content">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="service" Type="int" />
+          <Property Name="title" Type="varchar" MaxLength="1000" />
+          <Property Name="icon" Type="varchar" MaxLength="1000" />
+          <Property Name="image1" Type="varchar" MaxLength="1000" />
+          <Property Name="image2" Type="varchar" MaxLength="1000" />
+          <Property Name="insertdate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="remark" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="servicename" Type="varchar" MaxLength="50" />
+          <Property Name="remark" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_content_service">
+          <End Role="service" Type="Self.service" Multiplicity="0..1" />
+          <End Role="content" Type="Self.content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="content">
+              <PropertyRef Name="service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="digitaluxeModelStoreContainer">
+          <EntitySet Name="content" EntityType="Self.content" Schema="digitaluxe" store:Type="Tables" />
+          <EntitySet Name="service" EntityType="Self.service" Schema="digitaluxe" store:Type="Tables" />
+          <AssociationSet Name="FK_content_service" Association="Self.FK_content_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="content" EntitySet="content" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="digitaluxeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="content">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="service" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="icon" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="image1" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="image2" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="insertdate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="remark" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="service1" Relationship="Self.FK_content_service" FromRole="content" ToRole="service" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="servicename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="contents" Relationship="Self.FK_content_service" FromRole="service" ToRole="content" />
+        </EntityType>
+        <Association Name="FK_content_service">
+          <End Role="service" Type="Self.service" Multiplicity="0..1" />
+          <End Role="content" Type="Self.content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="content">
+              <PropertyRef Name="service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="digitaluxeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="contents" EntityType="Self.content" />
+          <EntitySet Name="services" EntityType="Self.service" />
+          <AssociationSet Name="FK_content_service" Association="Self.FK_content_service">
+            <End Role="service" EntitySet="services" />
+            <End Role="content" EntitySet="contents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="digitaluxeModelStoreContainer" CdmEntityContainer="digitaluxeEntities">
+          <EntitySetMapping Name="contents">
+            <EntityTypeMapping TypeName="digitaluxeModel.content">
+              <MappingFragment StoreEntitySet="content">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="service" ColumnName="service" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="image1" ColumnName="image1" />
+                <ScalarProperty Name="image2" ColumnName="image2" />
+                <ScalarProperty Name="insertdate" ColumnName="insertdate" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="services">
+            <EntityTypeMapping TypeName="digitaluxeModel.service">
+              <MappingFragment StoreEntitySet="service">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="servicename" ColumnName="servicename" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
